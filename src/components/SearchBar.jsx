@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function SearchBar({ onSearch, loading }) {
+function SearchBar({ onSearch, loading, darkMode }) {
   const [query, setQuery] = useState('')
   const [year, setYear] = useState('')
 
@@ -8,6 +8,10 @@ function SearchBar({ onSearch, loading }) {
     if (query.trim() === '') return
     onSearch(query, year)
   }
+
+  const inputClass = darkMode
+    ? 'bg-gray-800 text-white border-gray-600 focus:border-yellow-400'
+    : 'bg-white text-gray-900 border-gray-300 focus:border-yellow-500'
 
   return (
     <div className="flex flex-col gap-3 mb-8">
@@ -18,14 +22,14 @@ function SearchBar({ onSearch, loading }) {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="Search for a movie..."
-          className="flex-1 px-5 py-3 rounded-xl bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-yellow-400 text-lg"
+          className={`flex-1 px-5 py-3 rounded-xl border focus:outline-none text-lg ${inputClass}`}
         />
         <input
           type="text"
           value={year}
           onChange={(e) => setYear(e.target.value)}
           placeholder="Year (optional)"
-          className="w-36 px-4 py-3 rounded-xl bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-yellow-400"
+          className={`w-36 px-4 py-3 rounded-xl border focus:outline-none ${inputClass}`}
         />
         <button
           onClick={handleSearch}
@@ -35,8 +39,8 @@ function SearchBar({ onSearch, loading }) {
           {loading ? 'Searching...' : '🔍 Search'}
         </button>
       </div>
-      <p className="text-gray-600 text-sm text-center">
-        Try "Avengers", "Dangal", "Baahubali" — Add year for better results (e.g. PK + 2014)
+      <p className={`text-sm text-center ${darkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+        Try "Avengers", "Dangal", "Baahubali" — Add year for better results
       </p>
     </div>
   )

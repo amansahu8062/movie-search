@@ -3,7 +3,7 @@ import SearchBar from './components/SearchBar'
 import MovieCard from './components/MovieCard'
 import MovieDetail from './components/MovieDetail'
 
-const API_KEY = a8981861 // replace with your OMDB key
+const API_KEY = 'a8981861'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -12,8 +12,8 @@ function App() {
   const [detailLoading, setDetailLoading] = useState(false)
   const [error, setError] = useState('')
   const [searched, setSearched] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
 
-  // Search movies
   const handleSearch = async (query, year) => {
     setLoading(true)
     setError('')
@@ -39,7 +39,6 @@ function App() {
     setLoading(false)
   }
 
-  // Get full movie details
   const handleSelectMovie = async (imdbID) => {
     setDetailLoading(true)
 
@@ -56,20 +55,40 @@ function App() {
     setDetailLoading(false)
   }
 
+  // Theme classes
+  const theme = {
+    bg: darkMode ? 'bg-gray-900' : 'bg-gray-100',
+    text: darkMode ? 'text-white' : 'text-gray-900',
+    subtext: darkMode ? 'text-gray-400' : 'text-gray-500',
+    error: darkMode ? 'text-red-400' : 'text-red-500',
+  }
+
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className={`min-h-screen ${theme.bg} transition-colors duration-300`}>
       <div className="max-w-6xl mx-auto px-4 py-8">
 
         {/* Header */}
-        <h1 className="text-4xl font-bold text-center text-yellow-400 mb-2">
-          🎬 Movie Search
-        </h1>
-        <p className="text-center text-gray-400 mb-8">
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex-1" />
+          <h1 className="text-4xl font-bold text-center text-yellow-400">
+            🎬 Movie Search
+          </h1>
+          <div className="flex-1 flex justify-end">
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="bg-yellow-400 text-gray-900 font-bold px-4 py-2 rounded-xl hover:bg-yellow-300 transition-colors"
+            >
+              {darkMode ? '☀️ Light' : '🌙 Dark'}
+            </button>
+          </div>
+        </div>
+
+        <p className={`text-center ${theme.subtext} mb-8`}>
           Search any movie and get full details!
         </p>
 
         {/* Search Bar */}
-        <SearchBar onSearch={handleSearch} loading={loading} />
+        <SearchBar onSearch={handleSearch} loading={loading} darkMode={darkMode} />
 
         {/* Loading */}
         {loading && (
@@ -88,7 +107,7 @@ function App() {
         {/* Error */}
         {error && (
           <div className="text-center py-8">
-            <p className="text-red-400 text-lg">❌ {error}</p>
+            <p className={`${theme.error} text-lg`}>❌ {error}</p>
           </div>
         )}
 
@@ -96,21 +115,22 @@ function App() {
         {!searched && !loading && (
           <div className="text-center py-16">
             <p className="text-8xl mb-4">🎥</p>
-            <p className="text-gray-400 text-xl">Search for any movie to get started!</p>
-            <p className="text-gray-600 text-sm mt-2">Try "Avengers", "Baahubali", "Dangal", "Inception"</p>
+            <p className={`${theme.subtext} text-xl`}>Search for any movie to get started!</p>
+            <p className={`${theme.subtext} text-sm mt-2 opacity-60`}>Try "Avengers", "Baahubali", "Dangal", "Inception"</p>
           </div>
         )}
 
         {/* Movies Grid */}
         {movies.length > 0 && (
           <>
-            <p className="text-gray-400 mb-4">{movies.length} movies found</p>
+            <p className={`${theme.subtext} mb-4`}>{movies.length} movies found</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {movies.map((movie) => (
                 <MovieCard
                   key={movie.imdbID}
                   movie={movie}
                   onSelect={handleSelectMovie}
+                  darkMode={darkMode}
                 />
               ))}
             </div>
