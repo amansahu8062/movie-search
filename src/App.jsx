@@ -55,7 +55,6 @@ function App() {
     setDetailLoading(false)
   }
 
-  // Theme classes
   const theme = {
     bg: darkMode ? 'bg-gray-900' : 'bg-gray-100',
     text: darkMode ? 'text-white' : 'text-gray-900',
@@ -64,23 +63,23 @@ function App() {
   }
 
   return (
-    <div className={`min-h-screen ${theme.bg} transition-colors duration-300`}>
-      <div className="max-w-6xl mx-auto px-3 py-6 overflow-x-hidden">
+    <div className={`min-h-screen w-full ${theme.bg} transition-colors duration-300`}>
+      <div className="w-full max-w-6xl mx-auto px-3 sm:px-4 py-6">
 
         {/* Header */}
-    <div className="flex justify-between items-center mb-2">
-      <h1 className="text-xl md:text-4xl font-bold text-yellow-400">
-        🎬 Movie Search
-      </h1>
-  <button
-    onClick={() => setDarkMode(!darkMode)}
-    className="bg-yellow-400 text-gray-900 font-bold px-3 py-2 rounded-xl hover:bg-yellow-300 transition-colors text-sm md:text-base whitespace-nowrap"
-  >
-    {darkMode ? '☀️ Light' : '🌙 Dark'}
-  </button>
-    </div>
+        <div className="flex justify-between items-center mb-2 gap-2">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-yellow-400 truncate">
+            🎬 Movie Search
+          </h1>
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="shrink-0 bg-yellow-400 text-gray-900 font-bold px-3 py-2 rounded-xl hover:bg-yellow-300 transition-colors text-xs sm:text-sm"
+          >
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
+        </div>
 
-        <p className={`text-center ${theme.subtext} mb-8`}>
+        <p className={`text-center ${theme.subtext} mb-6 text-sm sm:text-base`}>
           Search any movie and get full details!
         </p>
 
@@ -89,39 +88,39 @@ function App() {
 
         {/* Loading */}
         {loading && (
-          <div className="text-center py-16">
-            <p className="text-yellow-400 text-2xl animate-pulse">🎬 Searching movies...</p>
+          <div className="text-center py-10">
+            <p className="text-yellow-400 text-lg sm:text-2xl animate-pulse">🎬 Searching movies...</p>
           </div>
         )}
 
         {/* Detail Loading */}
         {detailLoading && (
           <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
-            <p className="text-yellow-400 text-2xl animate-pulse">Loading details...</p>
+            <p className="text-yellow-400 text-xl animate-pulse">Loading details...</p>
           </div>
         )}
 
         {/* Error */}
         {error && (
-          <div className="text-center py-8">
-            <p className={`${theme.error} text-lg`}>❌ {error}</p>
+          <div className="text-center py-6">
+            <p className={`${theme.error} text-base`}>❌ {error}</p>
           </div>
         )}
 
         {/* Empty state */}
         {!searched && !loading && (
-          <div className="text-center py-16">
-            <p className="text-8xl mb-4">🎥</p>
-            <p className={`${theme.subtext} text-xl`}>Search for any movie to get started!</p>
-            <p className={`${theme.subtext} text-sm mt-2 opacity-60`}>Try "Avengers", "Baahubali", "Dangal", "Inception"</p>
+          <div className="text-center py-10">
+            <p className="text-6xl sm:text-8xl mb-4">🎥</p>
+            <p className={`${theme.subtext} text-base sm:text-xl`}>Search for any movie to get started!</p>
+            <p className={`${theme.subtext} text-xs sm:text-sm mt-2 opacity-60`}>Try "Avengers", "Baahubali", "Dangal", "Inception"</p>
           </div>
         )}
 
         {/* Movies Grid */}
         {movies.length > 0 && (
           <>
-            <p className={`${theme.subtext} mb-4`}>{movies.length} movies found</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <p className={`${theme.subtext} mb-3 text-sm`}>{movies.length} movies found</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
               {movies.map((movie) => (
                 <MovieCard
                   key={movie.imdbID}
