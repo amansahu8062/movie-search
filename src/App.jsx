@@ -65,23 +65,20 @@ function App() {
 
   return (
     <div className={`min-h-screen ${theme.bg} transition-colors duration-300`}>
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-3 py-6 overflow-x-hidden">
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-2">
-          <div className="flex-1" />
-          <h1 className="text-2xl md:text-4xl font-bold text-center text-yellow-400">
-            🎬 Movie Search
-          </h1>
-          <div className="flex-1 flex justify-end">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="bg-yellow-400 text-gray-900 font-bold px-4 py-2 rounded-xl hover:bg-yellow-300 transition-colors"
-            >
-              {darkMode ? '☀️ Light' : '🌙 Dark'}
-            </button>
-          </div>
-        </div>
+    <div className="flex justify-between items-center mb-2">
+      <h1 className="text-xl md:text-4xl font-bold text-yellow-400">
+        🎬 Movie Search
+      </h1>
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    className="bg-yellow-400 text-gray-900 font-bold px-3 py-2 rounded-xl hover:bg-yellow-300 transition-colors text-sm md:text-base whitespace-nowrap"
+  >
+    {darkMode ? '☀️ Light' : '🌙 Dark'}
+  </button>
+    </div>
 
         <p className={`text-center ${theme.subtext} mb-8`}>
           Search any movie and get full details!
