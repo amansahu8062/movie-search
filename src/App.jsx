@@ -70,7 +70,7 @@ function App() {
         {/* Header */}
         <div className="flex justify-between items-center mb-2">
           <div className="flex-1" />
-          <h1 className="text-4xl font-bold text-center text-yellow-400">
+          <h1 className="text-2xl md:text-4xl font-bold text-center text-yellow-400">
             🎬 Movie Search
           </h1>
           <div className="flex-1 flex justify-end">
